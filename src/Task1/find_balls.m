@@ -1,23 +1,23 @@
-function out = find_balls(image)
+function out = find_balls(img)
 
     %% Pad the objects to make them more circular
     
     se = strel('disk', 3);
-    image = imclose(image, se);
-    image = imfill(image, 'holes');
+    img = imclose(img, se);
+    img = imfill(img, 'holes');
     
     %% Make the objects convex
-    cc1 = bwconncomp(image);
+    cc1 = bwconncomp(img);
     stats1 = regionprops(cc1, 'ConvexHull');
 
-    convex_image = false(size(image));
+    convex_image = false(size(img));
 
     % Loop over each object
     for i = 1:numel(stats1)
         % Get the convex hull for the current object
         convexHull = stats1(i).ConvexHull;     
         % Convert the convex hull to a binary mask
-        mask = poly2mask(convexHull(:,1), convexHull(:,2), size(image, 1), size(image, 2));
+        mask = poly2mask(convexHull(:,1), convexHull(:,2), size(img, 1), size(img, 2));
         
         % Combine the mask with the existing binary image
         convex_image = convex_image | mask;
@@ -35,7 +35,7 @@ function out = find_balls(image)
     cc3 = bwconncomp(convex_objects);
     stats3 = regionprops(cc3, 'Centroid', 'MajorAxisLength', 'MinorAxisLength', 'Orientation');
 
-    ellipse_image = false(size(image));
+    ellipse_image = false(size(img));
     for i = 1:numel(stats3)
         % Get the properties for the current object
         majorAxis   = stats3(i).MajorAxisLength/2;
@@ -64,7 +64,7 @@ function out = find_balls(image)
     y_coords = y_coords(2:2:end);
     
     % Create a new binary image where only the elliptical objects are included
-    elliptical_objects = ismember(labelmatrix(cc4), find([stats4.Eccentricity] < 0.85 & (height(image)*0.45 < y_coords)));
+    elliptical_objects = ismember(labelmatrix(cc4), find([stats4.Eccentricity] < 0.85 & (height(img)*0.45 < y_coords)));
 
     out = elliptical_objects;
 end
