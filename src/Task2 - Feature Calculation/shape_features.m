@@ -27,7 +27,7 @@ function [ball1, ball2, ball3] = shape_features(GT_path)
                 ball1.Eccentricity = [ball1.Eccentricity; eccentricity];
                 ball1.Circularity = [ball1.Circularity; circularity];
                 ball1.NonCompactness = [ball1.NonCompactness; non_compactness];
-            elseif area > 1500
+            elseif area > 1350
                 ball3.Solidity = [ball3.Solidity; solidity];
                 ball3.Eccentricity = [ball3.Eccentricity; eccentricity];
                 ball3.Circularity = [ball3.Circularity; circularity];
