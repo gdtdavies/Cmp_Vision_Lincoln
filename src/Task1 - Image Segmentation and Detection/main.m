@@ -1,6 +1,6 @@
 %loop through all the images in ../../data/ball_frames
 images_GT = dir('../../data/ball_frames/ground_truth/*.png');
-images = dir('../../data/ball_frames/*.png');
+images = dir('../../data/ball_frames/original/*.png');
 
 for i = 1:length(images)
     %read the image

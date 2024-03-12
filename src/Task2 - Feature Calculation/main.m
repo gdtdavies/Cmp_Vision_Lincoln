@@ -3,7 +3,7 @@
 % corresponding ball patches from original RGB images, carrying out the following tasks.  
 
 GT_path = '../../data/ball_frames/ground_truth/';
-RGB_path = '../../data/ball_frames/';
+RGB_path = '../../data/ball_frames/original';
 
 %% Shape features
 
