@@ -9,18 +9,16 @@ function [ball1, ball2, ball3] = shape_features(GT_path)
         cc = bwconncomp(GT);
 
         % calculate the shape features for each ball patch (solidity, non-compactness, circularity, eccentricity)
-        stats = regionprops(cc, 'Solidity', 'Eccentricity', 'Circularity', 'BoundingBox', 'Area');
+        stats = regionprops(cc, 'Solidity', 'Eccentricity', 'Circularity', 'Extent', 'Area');
         
         for j=1:cc.NumObjects
             solidity = stats(j).Solidity;
             eccentricity = stats(j).Eccentricity;
             circularity = stats(j).Circularity;
-            bbox = stats(j).BoundingBox;
+            extent = stats(j).Extent;
             area = stats(j).Area;
 
-            bbox_area = bbox(3)*bbox(4);
-
-            non_compactness = 1-((area)/bbox_area);
+            non_compactness = 1-extent;
 
             if area < 500
                 ball1.Solidity = [ball1.Solidity; solidity];
