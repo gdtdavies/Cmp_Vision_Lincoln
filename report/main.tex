@@ -1,6 +1,4 @@
 \documentclass[conference]{IEEEtran}
-\IEEEoverridecommandlockouts
-% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
@@ -38,6 +36,13 @@
 
 \subsection*{Task 1.b | Segmentation evaluation}
 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/DS_bar_graph.pdf}
+    \caption{Dice Similarity score for all 63 images\label{apx:best}}
+\end{figure}
+
 \section*{Task 2 | Feature Calculation}
 
 \subsection*{Task 2.a | Shape features}
@@ -45,8 +50,7 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\columnwidth]{figures/shape_feats.pdf}
-    \caption{Shape features}
-    \label{fig:shape_feats}
+    \caption{Shape features\label{fig:shape_feats}}
 \end{figure}
 
 
@@ -55,15 +59,13 @@
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\columnwidth]{figures/averages.pdf}
-    \caption{Texture features Averages}
-    \label{fig:tex_feats_avgs}
+    \caption{Texture features Averages\label{fig:tex_feats_avgs}}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\columnwidth]{figures/shape_feats.pdf}
-    \caption{Texture features Ranges}
-    \label{fig:tex_feats_ranges}
+    \includegraphics[width=\columnwidth]{figures/ranges.pdf}
+    \caption{Texture features Ranges\label{fig:tex_feats_ranges}}
 \end{figure}
 
 
@@ -75,10 +77,19 @@
 
 \subsection*{Task 3.b | Evaluation}
 
+
 \appendix
 
-
-
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/best.pdf}
+    \caption{Best 5 segmented ball images compared to the ground truth\label{apx:best}}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/worst.pdf}
+    \caption{Worst 5 segmented ball images compared to the ground trut\label{apx:worst}}
+\end{figure}
 
 
 \end{document}
