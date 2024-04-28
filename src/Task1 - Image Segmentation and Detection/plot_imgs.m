@@ -5,31 +5,29 @@ function plot_imgs(imgs, name)
 
     for i = 1:5
         if strcmp(name, 'best')
-            subplot(2, 5, i);
+            subplot(5, 2, i+(i-1));
             imshow([mask_path 'frame-' num2str(imgs(end-i+1)+53) '.png']);
             title(['Best Segmented Image ' num2str(imgs(end-i+1)+53)]);
 
-            subplot(2, 5, i+5);
+            subplot(5, 2, i*2);
             imshow([GT_path 'frame-' num2str(imgs(end-i+1)+53) '_GT.png']);
             title(['GT Mask Image ' num2str(imgs(end-i+1)+53)]);
         elseif strcmp(name, 'worst')
-            subplot(2, 5, i);
+            subplot(5, 2, i+(i-1));
             imshow([mask_path 'frame-' num2str(imgs(i)+53) '.png']);
             title(['Worst Segmented Image ' num2str(imgs(i)+53)]);
 
-            subplot(2, 5, i+5);
+            subplot(5, 2, i*2);
             imshow([GT_path 'frame-' num2str(imgs(i)+53) '_GT.png']);
             title(['GT Mask Image ' num2str(imgs(i)+53)]);
         end
-        
-        
     end
 
     fname = strcat('../../report/figures/', name ,'.pdf');
 
     picturewidth = 30; % set this parameter and keep it forever
-    hw_ratio = 0.4; % feel free to play with this ratio
-    set(findall(hfig,'-property','FontSize'),'FontSize', 10) % adjust fontsize to your document
+    hw_ratio = 1.4; % feel free to play with this ratio
+    set(findall(hfig,'-property','FontSize'),'FontSize', 20) % adjust fontsize to your document
 
     set(findall(hfig,'-property','Interpreter'),'Interpreter','latex') 
     set(findall(hfig,'-property','TickLabelInterpreter'),'TickLabelInterpreter','latex')
