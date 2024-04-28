@@ -16,7 +16,8 @@ function box_and_hist(data_r, data_g, data_b, name)
     football_colour = [0.5 0.5 1];
     american_colour = [0.4 0.2 0.19];
 
-    figure('Name', name);
+    hfig = figure;  % save the figure handle in a variable   
+
     subplot(3, 2, 1);
     histogram(tennis_r, 10, 'FaceColor', tennis_colour, 'EdgeColor', 'none');
     hold on;
@@ -52,5 +53,20 @@ function box_and_hist(data_r, data_g, data_b, name)
     subplot(3, 2, 6); % Create a subplot for boxplots
     boxplot([american_b, football_b, tennis_b], 'Orientation', 'horizontal', 'Labels', {'American Football', 'Football', 'Tennis'});
     hold off;
+
+
+    %https://www.youtube.com/watch?v=wP3jjk1O18A
+    fname = strcat('../../report/figures/', name, '.pdf');
+
+    picturewidth = 30; % set this parameter and keep it forever
+    hw_ratio = 0.65; % feel free to play with this ratio
+    set(findall(hfig,'-property','FontSize'),'FontSize', 10) % adjust fontsize to your document
+
+    set(findall(hfig,'-property','Interpreter'),'Interpreter','latex') 
+    set(findall(hfig,'-property','TickLabelInterpreter'),'TickLabelInterpreter','latex')
+    set(hfig,'Units','centimeters','Position',[3 3 picturewidth hw_ratio*picturewidth])
+    pos = get(hfig,'Position');
+    set(hfig,'PaperPositionMode','Auto','PaperUnits','centimeters','PaperSize',[pos(3), pos(4)])
+    print(hfig,fname,'-dpdf','-painters','-fillpage')
 
 end
