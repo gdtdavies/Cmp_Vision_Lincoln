@@ -14,7 +14,7 @@ function box_and_hist(data_r, data_g, data_b, name)
     %(102, 56, 49)
     tennis_colour = [0.87 1.0 0.31];
     football_colour = [0.5 0.5 1];
-    american_colour = [0.4 0.2 0];
+    american_colour = [0.4 0.2 0.19];
 
     figure('Name', name);
     subplot(3, 2, 1);
