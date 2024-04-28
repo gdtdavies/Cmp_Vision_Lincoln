@@ -11,7 +11,8 @@ RGB_path = '../../data/ball_frames/original/';
 % discussed in the lectures (solidity, non-compactness, circularity, eccentricity). Plot the 
 % distribution of all the four features, per ball type.
 
-% [ball1, ball2, ball3] = shape_features(GT_path);
+[ball1, ball2, ball3] = shape_features(GT_path);
+plot_shapes(ball1, ball2, ball3);
 
 %% Texture features
 
@@ -23,7 +24,7 @@ RGB_path = '../../data/ball_frames/original/';
 % one feature from each of the colour channels and plot the distribution per ball type.
 
 [features, averages, ranges] = texture_features(RGB_path, GT_path);
-plot_features(averages, ranges)
+plot_features(averages, ranges);
 
 %% Discriminative information
 

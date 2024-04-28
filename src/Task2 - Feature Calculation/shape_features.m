@@ -39,22 +39,39 @@ function [ball1, ball2, ball3] = shape_features(GT_path)
         end
     end
 
-    % plot the distribution of all the four features, per ball type
-    figure;
-    subplot(2,2,1), histogram(ball1.Solidity, 20),       title('Solidity - Ball 1');
-    subplot(2,2,2), histogram(ball1.Eccentricity, 20),   title('Eccentricity - Ball 1');
-    subplot(2,2,3), histogram(ball1.Circularity, 20),    title('Circularity - Ball 1'); 
-    subplot(2,2,4), histogram(ball1.NonCompactness, 20), title('Non-Compactness - Ball 1');
-
-    figure;
-    subplot(2,2,1), histogram(ball2.Solidity, 20),       title('Solidity - Ball 2');
-    subplot(2,2,2), histogram(ball2.Eccentricity, 20),   title('Eccentricity - Ball 2');
-    subplot(2,2,3), histogram(ball2.Circularity, 20),    title('Circularity - Ball 2');
-    subplot(2,2,4), histogram(ball2.NonCompactness, 20), title('Non-Compactness - Ball 2');
-
-    figure;
-    subplot(2,2,1), histogram(ball3.Solidity, 20),       title('Solidity - Ball 3');
-    subplot(2,2,2), histogram(ball3.Eccentricity, 20),   title('Eccentricity - Ball 3');
-    subplot(2,2,3), histogram(ball3.Circularity, 20),    title('Circularity - Ball 3');
-    subplot(2,2,4), histogram(ball3.NonCompactness, 20), title('Non-Compactness - Ball 3');
+    %figure('Name', 'averages');
+    %subplot(2, 2, 1);
+    %histogram(ball1.Solidity, 10, 'FaceColor', [0.87 1.0 0.31], 'EdgeColor', 'none');
+    %hold on;
+    %histogram(ball2.Solidity, 10, 'FaceColor', 'b', 'EdgeColor', 'none');
+    %histogram(ball3.Solidity, 10, 'FaceColor', [0.4 0.2 0], 'EdgeColor', 'none');
+    %title('Solidity');
+    %legend('Tennis', 'Football', 'American');
+    %
+    %subplot(2, 2, 2);
+    %histogram(ball1.Eccentricity, 10, 'FaceColor', [0.87 1.0 0.31], 'EdgeColor', 'none');
+    %hold on;
+    %histogram(ball2.Eccentricity, 10, 'FaceColor', 'b', 'EdgeColor', 'none');
+    %histogram(ball3.Eccentricity, 10, 'FaceColor', [0.4 0.2 0], 'EdgeColor', 'none');
+    %title('Eccentricity');
+    %legend('Tennis', 'Football', 'American');
+    %hold off;
+%
+    %subplot(2, 2, 3);
+    %histogram(ball1.Circularity, 10, 'FaceColor', [0.87 1.0 0.31], 'EdgeColor', 'none');
+    %hold on;
+    %histogram(ball2.Circularity, 10, 'FaceColor', 'b', 'EdgeColor', 'none');
+    %histogram(ball3.Circularity, 10, 'FaceColor', [0.4 0.2 0], 'EdgeColor', 'none');
+    %title('Circularity');
+    %legend('Tennis', 'Football', 'American');
+    %hold off;
+%
+    %subplot(2, 2, 4);
+    %histogram(ball1.NonCompactness, 10, 'FaceColor', [0.87 1.0 0.31], 'EdgeColor', 'none');
+    %hold on;
+    %histogram(ball2.NonCompactness, 10, 'FaceColor', 'b', 'EdgeColor', 'none');
+    %histogram(ball3.NonCompactness, 10, 'FaceColor', [0.4 0.2 0], 'EdgeColor', 'none');
+    %title('Non-Compactness');
+    %legend('Tennis', 'Football', 'American');
+    %hold off;
 end
