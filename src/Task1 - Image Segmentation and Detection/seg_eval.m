@@ -40,8 +40,8 @@ std_DS = std(DS);
 [sorted_DS, sorted_indices] = sort(DS);
 
 % Display the worst 5 segmented ball images and their corresponding GT mask images
-plot_imgs(sorted_indices, 'worst');
+plot_imgs(sorted_indices, DS, 'worst');
 
 % Display the best 5 segmented ball images and their corresponding GT mask images
-plot_imgs(sorted_indices, 'best');
+plot_imgs(sorted_indices, DS, 'best');
 

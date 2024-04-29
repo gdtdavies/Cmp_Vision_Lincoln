@@ -1,4 +1,4 @@
-function plot_imgs(imgs, name)
+function plot_imgs(imgs, DS, name)
     GT_path = '../../data/ball_frames/ground_truth/';
     mask_path ='../../data/ball_frames/mask/';
     hfig = figure;
@@ -7,7 +7,7 @@ function plot_imgs(imgs, name)
         if strcmp(name, 'best')
             subplot(5, 2, i+(i-1));
             imshow([mask_path 'frame-' num2str(imgs(end-i+1)+53) '.png']);
-            title(['Best Segmented Image ' num2str(imgs(end-i+1)+53)]);
+            title(['Best Image ' num2str(imgs(end-i+1)+53) ' - DS: ' num2str(round(DS(imgs(end-i+1)), 3))]);
 
             subplot(5, 2, i*2);
             imshow([GT_path 'frame-' num2str(imgs(end-i+1)+53) '_GT.png']);
@@ -15,7 +15,7 @@ function plot_imgs(imgs, name)
         elseif strcmp(name, 'worst')
             subplot(5, 2, i+(i-1));
             imshow([mask_path 'frame-' num2str(imgs(i)+53) '.png']);
-            title(['Worst Segmented Image ' num2str(imgs(i)+53)]);
+            title(['Worst Image ' num2str(imgs(i)+53) ' - DS: ' num2str(round(DS(imgs(i)), 3))]);
 
             subplot(5, 2, i*2);
             imshow([GT_path 'frame-' num2str(imgs(i)+53) '_GT.png']);
@@ -27,7 +27,7 @@ function plot_imgs(imgs, name)
 
     picturewidth = 30; % set this parameter and keep it forever
     hw_ratio = 1.4; % feel free to play with this ratio
-    set(findall(hfig,'-property','FontSize'),'FontSize', 20) % adjust fontsize to your document
+    set(findall(hfig,'-property','FontSize'),'FontSize', 22) % adjust fontsize to your document
 
     set(findall(hfig,'-property','Interpreter'),'Interpreter','latex') 
     set(findall(hfig,'-property','TickLabelInterpreter'),'TickLabelInterpreter','latex')

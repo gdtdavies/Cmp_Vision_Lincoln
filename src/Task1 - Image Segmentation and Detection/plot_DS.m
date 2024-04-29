@@ -1,4 +1,4 @@
-function plot_DS( DS)
+function plot_DS(DS)
     % Plotting the bar graph
     hfig = figure;
     bar(DS);
