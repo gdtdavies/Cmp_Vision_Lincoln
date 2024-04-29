@@ -4,7 +4,8 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{caption}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
@@ -71,12 +72,50 @@
 %For each of the ball patches, calculate four different shape features discussed in the lectures (solidity, 
 %non-compactness, circularity, eccentricity). Plot the distribution of all the four features, per ball type.
 
+For this task, the following shape features were calculated:
+\begin{enumerate}
+    \item Solidity: The proportion of the pixels in the convex hull that are also in the object.
+    \[\text{Solidity} = \frac{\text{Area of the object}}{\text{Area of its convex hull}}\]
+    \item Non-compactness: Compactness is the proportion of the region's pixels to all of the bounding box's pixels. So non-compactness is the inverse of this.
+    \[\text{Non-compactness} = 1 - \frac{\text{Area of the object}}{\text{Area of bounding box}}\]
+    \item Circularity: The roundness of the object.
+    \[\text{Circularity} = \frac{4\pi * \text{Area of the object}}{(\text{Perimeter of the object})^2} * \left(1 - \frac{0.5}{{\text{r}}}\right)\]
+    Where r = $\frac{\text{Perimeter of the object}}{2\pi} + 0.5$
+    \item Eccentricity: The eccentricity is the proportion of the distance between the foci of the ellipse and the length of its major axis. An eccentricity of 0 means its a perfect circle. An eccentricity of 1 means its a line.
+    \[\text{Eccentricity} = \frac{\text{Distance between foci of ellipse}}{\text{Length of major axis of ellipse}}\]
+\end{enumerate}
+
+
 \begin{figure}[htbp]
+    \captionsetup{singlelinecheck=off}
     \centering
     \includegraphics[width=\columnwidth]{figures/shape_feats.pdf}
-    \caption{Shape features\label{fig:shape_feats}}
+    \caption[]{Histograms and boxplots showing the Solidity, Non-Compactness, Circularity, and Eccentricity of the three ball types.\\
+        Legend: 
+        \begin{itemize}
+            \item \textcolor{GreenYellow}{yellow}: tennis
+            \item \textcolor{CadetBlue}{blue}: football
+            \item \textcolor{Tan}{brown}: american football
+        \end{itemize}
+        \label{fig:shape_feats}
+    }
 \end{figure}
 
+Figure~\ref{fig:shape_feats} displays histograms and boxplots representing the distribution of four different shape features (solidity, non-compactness, circularity, and eccentricity) for each ball type (tennis, football, and American football).\\
+Going through each shape feature one by one. 
+
+There is a lot of overlap between the three ball types for solidity. 
+The tennis ball has the lowest median solidity, followed by the football, and then the American football. 
+The tennis ball has the highest range of solidity values, followed by the football, and then the american football. 
+
+For Eccentricity, the order of the median values is the same as for solidity but there is less overlap between the three ball types.
+This measure seems better at distinguishing the american football from the other two ball types as the american football is not a sphere like the other two balls.
+
+Circularity like eccentricity is better at distinguishing the american football from the other two ball types, with the tennis ball and football having a similar Q1 and Q3 values.
+This is also due to the american football not being a sphere like the other two balls.
+
+Finally, non-compactness is the worst at distinguishing between the three ball types as there is a lot of overlap between the three ball types.
+The mean of the non-compactness values for each ball lie within 0.025 of each other.
 
 \subsection*{Task 2.b | Texture features}
 %Calculate the normalised grey-level co-occurrence matrix in four orientations (0°, 45°, 90°, 135°) for the patches 
@@ -85,16 +124,28 @@
 %per-patch features by calculating the feature average and range across the 4 orientations. Select one feature from 
 %each of the colour channels and plot the distribution per ball type.
 
+
 \begin{figure}[htbp]
     \centering
+    \captionsetup{singlelinecheck=off}
     \includegraphics[width=\columnwidth]{figures/averages.pdf}
-    \caption{Texture features Averages\label{fig:tex_feats_avgs}}
+    \caption[]{Histograms and boxplots showing the average Angular Second Moment, Contrast, and Correlation associated with one colour channel for each ball type.
+        Angular Second Moment on the red channel,
+        Contrast on the green channel,
+        Correlation on the blue channel. Same Legend as Figure~\ref{fig:shape_feats}.
+        \label{fig:tex_feats_avgs}
+    }
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\columnwidth]{figures/ranges.pdf}
-    \caption{Texture features Ranges\label{fig:tex_feats_ranges}}
+    \caption[]{Histograms and boxplots showing the ranges of Angular Second Moment, Contrast, and Correlation associated with one colour channel for each ball type.
+        Angular Second Moment on the red channel,
+        Contrast on the green channel,
+        Correlation on the blue channel. Same Legend as Figure~\ref{fig:shape_feats}.
+        \label{fig:tex_feats_ranges}
+    }
 \end{figure}
 
 
@@ -104,6 +155,7 @@
 %easiest/hardest to distinguish, based on the calculated features? Which other features or types of features would you 
 %suggest for the task of differentiating between the different ball types and why?
 %Analyse and discuss your findings in the report.
+
 
 
 \section*{Task 3 | Object Tracking}
