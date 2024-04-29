@@ -24,7 +24,6 @@ function box_and_hist(data_r, data_g, data_b, name)
     histogram(football_r, 10, 'FaceColor', football_colour, 'EdgeColor', 'none');
     histogram(american_r, 10, 'FaceColor', american_colour, 'EdgeColor', 'none');
     title('ASM - Red Channel');
-    legend('Tennis', 'Football', 'American');
 
     subplot(3, 2, 2); % Create a subplot for boxplots
     boxplot([american_r, football_r, tennis_r], 'Orientation', 'horizontal', 'Labels', {'American Football', 'Football', 'Tennis'});
@@ -36,7 +35,6 @@ function box_and_hist(data_r, data_g, data_b, name)
     histogram(football_g, 10, 'FaceColor', football_colour, 'EdgeColor', 'none');
     histogram(american_g, 10, 'FaceColor', american_colour, 'EdgeColor', 'none');
     title('Contrast - Green Channel');
-    legend('Tennis', 'Football', 'American');
 
     subplot(3, 2, 4); % Create a subplot for boxplots
     boxplot([american_g, football_g, tennis_g], 'Orientation', 'horizontal', 'Labels', {'American Football', 'Football', 'Tennis'});
@@ -48,7 +46,6 @@ function box_and_hist(data_r, data_g, data_b, name)
     histogram(football_b, 10, 'FaceColor', football_colour, 'EdgeColor', 'none');
     histogram(american_b, 10, 'FaceColor', american_colour, 'EdgeColor', 'none');
     title('Correlation - Blue Channel');
-    legend('Tennis', 'Football', 'American');
 
     subplot(3, 2, 6); % Create a subplot for boxplots
     boxplot([american_b, football_b, tennis_b], 'Orientation', 'horizontal', 'Labels', {'American Football', 'Football', 'Tennis'});
@@ -60,13 +57,13 @@ function box_and_hist(data_r, data_g, data_b, name)
 
     picturewidth = 30; % set this parameter and keep it forever
     hw_ratio = 0.65; % feel free to play with this ratio
-    set(findall(hfig,'-property','FontSize'),'FontSize', 10) % adjust fontsize to your document
+    set(findall(hfig,'-property','FontSize'),'FontSize', 15) % adjust fontsize to your document
 
     set(findall(hfig,'-property','Interpreter'),'Interpreter','latex') 
     set(findall(hfig,'-property','TickLabelInterpreter'),'TickLabelInterpreter','latex')
     set(hfig,'Units','centimeters','Position',[3 3 picturewidth hw_ratio*picturewidth])
     pos = get(hfig,'Position');
     set(hfig,'PaperPositionMode','Auto','PaperUnits','centimeters','PaperSize',[pos(3), pos(4)])
-    print(hfig,fname,'-dpdf','-painters','-fillpage')
+    print(hfig,fname,'-dpdf','-vector','-fillpage')
 
 end

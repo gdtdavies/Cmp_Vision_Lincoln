@@ -11,7 +11,7 @@ function plot_shapes(ball1, ball2, ball3)
     histogram(ball2.Solidity, 10, 'FaceColor', football_colour, 'EdgeColor', 'none');
     histogram(ball3.Solidity, 10, 'FaceColor', american_colour, 'EdgeColor', 'none');
     title('Solidity');
-    legend('Tennis', 'Football', 'American');
+    hold off;
 
     subplot(4, 2, 2); % Create a subplot for boxplots
     boxplot([ball3.Solidity, ball2.Solidity, ball1.Solidity], 'Orientation', 'horizontal', 'Labels', {'American Football', 'Football', 'Tennis'});
@@ -24,7 +24,6 @@ function plot_shapes(ball1, ball2, ball3)
     histogram(ball2.Eccentricity, 10, 'FaceColor', football_colour, 'EdgeColor', 'none');
     histogram(ball3.Eccentricity, 10, 'FaceColor', american_colour, 'EdgeColor', 'none');
     title('Eccentricity');
-    legend('Tennis', 'Football', 'American');
     hold off;
 
     subplot(4, 2, 4); % Create a subplot for boxplots
@@ -38,7 +37,6 @@ function plot_shapes(ball1, ball2, ball3)
     histogram(ball2.Circularity, 10, 'FaceColor', football_colour, 'EdgeColor', 'none');
     histogram(ball3.Circularity, 10, 'FaceColor', american_colour, 'EdgeColor', 'none');
     title('Circularity');
-    legend('Tennis', 'Football', 'American');
     hold off;
 
     subplot(4, 2, 6); % Create a subplot for boxplots
@@ -52,7 +50,6 @@ function plot_shapes(ball1, ball2, ball3)
     histogram(ball2.NonCompactness, 10, 'FaceColor', football_colour, 'EdgeColor', 'none');
     histogram(ball3.NonCompactness, 10, 'FaceColor', american_colour, 'EdgeColor', 'none');
     title('Non-Compactness');
-    legend('Tennis', 'Football', 'American');
     hold off;
 
     subplot(4, 2, 8); % Create a subplot for boxplots
@@ -64,14 +61,14 @@ function plot_shapes(ball1, ball2, ball3)
 
     picturewidth = 30; % set this parameter and keep it forever
     hw_ratio = 0.65; % feel free to play with this ratio
-    set(findall(hfig,'-property','FontSize'),'FontSize', 10) % adjust fontsize to your document
+    set(findall(hfig,'-property','FontSize'),'FontSize', 15) % adjust fontsize to your document
 
     set(findall(hfig,'-property','Interpreter'),'Interpreter','latex') 
     set(findall(hfig,'-property','TickLabelInterpreter'),'TickLabelInterpreter','latex')
     set(hfig,'Units','centimeters','Position',[3 3 picturewidth hw_ratio*picturewidth])
     pos = get(hfig,'Position');
     set(hfig,'PaperPositionMode','Auto','PaperUnits','centimeters','PaperSize',[pos(3), pos(4)])
-    print(hfig,fname,'-dpdf','-painters','-fillpage')
+    print(hfig,fname,'-dpdf','-vector','-fillpage')
 
     
 end
