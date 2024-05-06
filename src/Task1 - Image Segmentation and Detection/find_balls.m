@@ -28,7 +28,7 @@ function out = find_balls(img)
     
     % Create a new binary image where only the elliptical objects are included
     elliptical_objects = ismember(labelmatrix(cc2), find((325 < [stats2.Area] & [stats2.Area] < 2600) & (height(img)*0.45 < y) & [stats2.Extent] > 0.6));
-    imshow(elliptical_objects)
+    % imshow(elliptical_objects)
 
     out = elliptical_objects;
 end

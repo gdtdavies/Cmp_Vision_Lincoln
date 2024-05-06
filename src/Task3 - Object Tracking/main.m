@@ -22,16 +22,7 @@ nb = readmatrix('../../data/nb.csv');
 %% 1) You should plot the estimated trajectory of coordinates [x*,y*], together with the real [x,y] 
 % and the noisy ones [a,b] for comparison. Discuss how you arrive to the solution.
 
-figure;
-plot(x, y, 'r', 'LineWidth', 0.5);
-hold on;
-plot(na, nb, 'bx', 'MarkerSize', 5);
-plot(x_, y_, 'g', 'LineWidth', 0.5);
-legend('Real', 'Noisy', 'Estimated');
-xlabel('x');
-ylabel('y');
-title('Real, Noisy and Estimated Coordinates');
-hold off;
+plot_fig(x, y, na, nb, x_, y_);
 
 
 %% 2) You  should  also  assess  the  quality  of  the  tracking  by  calculating  the  mean  and  standard 
@@ -43,15 +34,15 @@ hold off;
 % report. 
 
 % Root Mean Squared Error (RMSE) calculation
-rmse_na = sqrt(mean((na - x).^2 + (nb - y).^2));
-rmse_x = sqrt(mean((x_ - x).^2 + (y_ - y).^2));
+rmse_n = sqrt(mean((x - na).^2 + (y - nb).^2));
+rmse = sqrt(mean((x - x_).^2 + (y - y_).^2));
 
 % Standard deviation calculation of the RMSE
-std_na = std(sqrt((na - x).^2 + (nb - y).^2));
-std_x = std(sqrt((x_ - x).^2 + (y_ - y).^2));
+std_n = std(sqrt((x - na).^2 + (y - nb).^2));
+std = std(sqrt((x - x_).^2 + (y - y_).^2));
 
-fprintf('RMSE for noisy coordinates: %f\n', rmse_na);
-fprintf('RMSE for estimated coordinates: %f\n', rmse_x);
-fprintf('Standard deviation for noisy coordinates: %f\n', std_na);
-fprintf('Standard deviation for estimated coordinates: %f\n', std_x);
+fprintf('RMSE for noisy coordinates: %f\n', rmse_n);
+fprintf('RMSE for estimated coordinates: %f\n', rmse);
+fprintf('Standard deviation for noisy coordinates: %f\n', std_n);
+fprintf('Standard deviation for estimated coordinates: %f\n', std);
 

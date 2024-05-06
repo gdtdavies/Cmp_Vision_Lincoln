@@ -12,7 +12,8 @@ function [px, py] = kalman_tracking(z)
     Q = [0.16 0 0 0; 0 0.36 0 0; 0 0 0.16 0; 0 0 0 0.36]; % motion noise
     R = [0.25 0; 0 0.25]; % observation noise
     
-    x = [0 0 0 0]'; % initial state
+    x = [z(1,1); 0; z(2,1); 0]; % initial state
+    % x = [0 0 0 0]'; % initial state
     P = Q; % initial state covariance
 
     s = zeros(4,N);
