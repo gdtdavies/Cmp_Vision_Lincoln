@@ -7,6 +7,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{caption}
 \usepackage{matlab-prettifier}
+\usepackage{siunitx}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
@@ -127,7 +128,8 @@
         \end{figure}
 
         As seen in Figure~\ref{fig:DS_bar_graph}, the segmentation performs well from images 2 to 34, then it starts to lower in quality.
-        This is due to the otsu segmentation of the american football being too strong near the end.
+        This is due to the otsu segmentation of the american football being too strong near the end.\\
+        The average every image's DS score is \textbf{0.90464} and the standard deviation is \textbf{0.040538} 
 
 \section*{Task 2 | Feature Calculation}
     %This part of the assignment will deal with feature extraction, more specifically you will be examining texture and 
@@ -145,7 +147,7 @@
             \item Non-compactness: Compactness is the proportion of the region's pixels to all of the bounding box's pixels. So non-compactness is the inverse of this.
             \[\text{Non-compactness} = 1 - \frac{\text{Area of the object}}{\text{Area of bounding box}}\]
             \item Circularity: The roundness of the object.
-            \[\text{Circularity} = \frac{4\pi * \text{Area of the object}}{(\text{Perimeter of the object})^2} * \left(1 - \frac{0.5}{{\text{r}}}\right)\]
+            \[\text{Circularity} = \frac{4\pi * \text{Area of the object}}{{(\text{Perimeter of the object})}^2} * \left(1 - \frac{0.5}{{\text{r}}}\right)\]
             Where r = $\frac{\text{Perimeter of the object}}{2\pi} + 0.5$
             \item Eccentricity: The eccentricity is the proportion of the distance between the foci of the ellipse and the length of its major axis. An eccentricity of 0 means its a perfect circle. An eccentricity of 1 means its a line.
             \[\text{Eccentricity} = \frac{\text{Distance between foci of ellipse}}{\text{Length of major axis of ellipse}}\]
@@ -159,7 +161,7 @@
             \caption[]{Histograms and boxplots showing the Solidity, Non-Compactness, Circularity, and Eccentricity of the three ball types.\\
                 Legend: 
                 \begin{itemize}
-                    \item \textcolor{GreenYellow}{yellow}: tennis
+                    \item \textcolor{Dandelion}{yellow}: tennis
                     \item \textcolor{CadetBlue}{blue}: football
                     \item \textcolor{Tan}{brown}: american football
                 \end{itemize}~\label{fig:shape_feats}
@@ -188,14 +190,28 @@
         %the first three features proposed by Haralick et al. (Angular Second Moment, Contrast, Correlation), and produce 
         %per-patch features by calculating the feature average and range across the 4 orientations. Select one feature from 
         %each of the colour channels and plot the distribution per ball type.
+        The goal of this task was to calculate the normalised grey-level co-occurrence matrix (glcm) in 4 orientations for each ball patch 
+        and for each colour channel.
 
         The texture features that were extracted were:
         \begin{itemize}
-            \item Angular Second Moment:
-            \item Contrast:
-            \item Correlation:
+            \item Angular Second Moment (ASM): also know as energy is the sum of squared elements in the glcm.\@
+                \begin{equation}
+                    \text{ASM} = \sum_{i,j} {p(i,j)}^2
+                \end{equation}
+            \item Contrast: is the a measure of the intensity contrast between a pixel and its neighbor over the whole image.
+                \begin{equation}
+                    \text{Contrast} = \sum_{i,j} |i-j|^2 p(i,j)
+                \end{equation}
+            \item Correlation: is the measure of how correlated a pixel is to its neighbor over the whole image.
+                \begin{equation}
+                    \text{Correlation} = \sum_{i,j} \frac{(i-\mu_i)(j-\mu_j)p(i,j)}{\sigma_i \sigma_j}
+                \end{equation}
         \end{itemize}
 
+        For each of these texture features, the average and range was calculated over the four orientations 
+        (\ang{0}, \ang{45}, \ang{90}, \ang{135}).\\
+        The averages can be seen in Figure~\ref{fig:tex_feats_avgs} and the ranges can be seen in Figure~\ref{fig:tex_feats_ranges}
 
         \begin{figure}[htbp]
             \centering
@@ -208,6 +224,13 @@
             }
         \end{figure}
 
+        For ASM in the red channel, there is no overlap between the ball types from their Q1 to Q3. Meaning this is a very good metric for 
+        discriminating between the ball types.\\
+        Same goes for Contrast in the green channel though there is more overlap between the tennis ball and football. The american football
+        is very distinguished from the other ball types.\\
+        Finally for the Correlation in the blue channel, the tennis ball is completely seperated from the other two ball types with minor
+        overlap between the football and american football.
+
         \begin{figure}[htbp]
             \centering
             \includegraphics[width=\columnwidth]{figures/ranges.pdf}
@@ -218,6 +241,12 @@
             }
         \end{figure}
 
+        With the ranges instead of the averages, the ASM seperates the three balls relativly well with the tennis ball frequently having a value
+        of zero and the two others with a small amount of overlap.\\
+        The Contrast is very bad at distinguishing the tennis ball from the american football, with the regular football having slightly higher 
+        contrast.\\
+        The Correction is incapable of distinguishing the tennis ball but is alright at seperating the football from the american football.
+
 
     \subsection*{Task 2.c | Discriminative information}
         %Based on your visualisations in part a) and b), discuss which features appear to be best at differentiating between 
@@ -225,6 +254,9 @@
         %easiest/hardest to distinguish, based on the calculated features? Which other features or types of features would you 
         %suggest for the task of differentiating between the different ball types and why?
         %Analyse and discuss your findings in the report.
+        Overall the texture features are much better at providing discriminative information than the shape features. This makes sense
+        for this situation as the three balls have similar shapes but their colours and patterns are more unique. If all three balls 
+        were made out of the same material, the texture features would be much less effective.
 
 
 
@@ -281,7 +313,7 @@
         The kalman tracking algoritm iterates over every sample. For each sample, it predicts a state vector and a covariance using the constant 
         velocity motion model and the motion noise, with which it then estimates the state and covariance with the Cartesian observation model,
         observation noise, and the sample.\\
-        Using the first sample and the initial state, Figure \ref{fig:kalman} is the result
+        Using the first sample and the initial state, Figure~\ref{fig:kalman} is the result
         \begin{figure}[htbp]
             \centering
             \includegraphics[width=\columnwidth]{figures/kalman.pdf}
@@ -297,7 +329,7 @@
 
         The equation for Root Mean Squared Error (RMSE) is:
         \begin{equation}
-            \text{RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}{((x_i - \hat{x}_i)^2 + (y_i - \hat{y}_i))}^2}
+            \text{RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}{({(x_i - \hat{x}_i)}^2 + {(y_i - \hat{y}_i)}^2)}}
         \end{equation}
         where:
         \begin{itemize}
@@ -339,10 +371,10 @@
 
         The results of these calualations are:
         \begin{itemize}
-            \item RMSE for the noisy coordinates \~= 7.416
-            \item RMSE for the estimated coordinates \~= 5.877
-            \item STD for the noisy coordinates \~= 2.573
-            \item STD for the estimated coordinates \~= 2.181
+            \item RMSE for the noisy coordinates \~= \textbf{7.416}
+            \item RMSE for the estimated coordinates \~= \textbf{5.877}
+            \item STD for the noisy coordinates \~= \textbf{2.573}
+            \item STD for the estimated coordinates \~= \textbf{2.181}
         \end{itemize}
         All these values are relative to the real coordinates and rounded to the $3^{rd}$ decimal.
         These results show that the kalman filter successfully removed some of the noise as it is closer to the real coordinates.\\ 
