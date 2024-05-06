@@ -5,3 +5,4 @@ doc/
 *.fls
 *.synctex*
 .DS_Store
+*.asv
